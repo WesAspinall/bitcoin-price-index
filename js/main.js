@@ -1,10 +1,10 @@
 (function(){
 
-  const URL = 'https://api.coindesk.com/v1/bpi/currentprice.json';
+  const URL         = 'https://api.coindesk.com/v1/bpi/currentprice.json';
+  const priceIndex  = document.querySelector('#price-index');
+  const lastUpdated = document.querySelector('#last-updated');
 
-  const root = document.querySelector('#root');
-
-  function renderBpiTemplate(data) {
+  function renderBpi(data) {
     return `
            <div class='currency'>
            <ul>
@@ -16,6 +16,10 @@
           `
   }
 
+  function renderUpdatedTime(data) {
+    return `<p>last updated: ${data.updated}</p>`
+  }
+
   fetch(URL)
     .then((res) => res.json())
     .then((data) => {
@@ -23,13 +27,16 @@
         bpi        = data.bpi;
         bpiInfo    = Object.values(bpi);
         disclaimer = data.disclaimer;
-        time       = data.time.updated;
-        
+        time       = data.time;
+
         bpiHtml    = bpiInfo
-                      .map((item) => renderBpiTemplate(item))
+                      .map((item) => renderBpi(item))
                       .join('');
+
+        timeHtml   = renderUpdatedTime(time);
         
-        root.innerHTML = bpiHtml;
+        lastUpdated.innerHTML = timeHtml;
+        priceIndex.innerHTML = bpiHtml;
     });
 
 })();
