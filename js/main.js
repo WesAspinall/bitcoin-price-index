@@ -4,27 +4,32 @@
 
   const root = document.querySelector('#root');
 
+  function renderBpiTemplate(data) {
+    return `
+           <div class='currency'>
+           <ul>
+             <li>${data.code} (${data.symbol})</li>
+             <li>Rate: ${data.rate}</li>
+             <li>Rate Float: ${data.rate_float}</li>
+           </ul>
+           </div>
+          `
+  }
+
   fetch(URL)
     .then((res) => res.json())
     .then((data) => {
-        bpi = data.bpi;
 
-        bpiInfo = Object.values(bpi);
-
-        html = bpiInfo.map((item) => {
-          return `
-           <div class='currency'>
-           <ul>
-             <li>${item.code} (${item.symbol})</li>
-             <li>Rate: ${item.rate}</li>
-             <li>Rate Float: ${item.rate_float}</li>
-           </ul>
-           </div>
-          `;
-
-        }).join('');
+        bpi        = data.bpi;
+        bpiInfo    = Object.values(bpi);
+        disclaimer = data.disclaimer;
+        time       = data.time.updated;
         
-        root.innerHTML = html;
+        bpiHtml    = bpiInfo
+                      .map((item) => renderBpiTemplate(item))
+                      .join('');
+        
+        root.innerHTML = bpiHtml;
     });
 
 })();
