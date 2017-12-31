@@ -3,6 +3,7 @@
   const URL         = 'https://api.coindesk.com/v1/bpi/currentprice.json';
   const priceIndex  = document.querySelector('#price-index');
   const lastUpdated = document.querySelector('#last-updated');
+  const disclaimerText  = document.querySelector('#disclaimer');
 
   function renderBpi(data) {
     return `
@@ -17,26 +18,32 @@
   }
 
   function renderUpdatedTime(data) {
-    return `<p>last updated: ${data.updated}</p>`
+    return `
+      <p>last updated: ${data}</p>
+      `
+  }
+
+  function renderDisclaimer(data) {
+    return `
+      <p>last updated: ${data}</p>
+      `
   }
 
   fetch(URL)
     .then((res) => res.json())
     .then((data) => {
 
-        bpi        = data.bpi;
-        bpiInfo    = Object.values(bpi);
+        bpi        = Object.values(data.bpi);
         disclaimer = data.disclaimer;
-        time       = data.time;
-
-        bpiHtml    = bpiInfo
-                      .map((item) => renderBpi(item))
-                      .join('');
+        time       = data.time.updated;
+        bpiHtml    = bpi.map((item) => renderBpi(item)).join('');
 
         timeHtml   = renderUpdatedTime(time);
-        
+        disclaimerHtml = renderDisclaimer(disclaimer);
+   
         lastUpdated.innerHTML = timeHtml;
         priceIndex.innerHTML = bpiHtml;
+        disclaimerText.innerHTML = disclaimerHtml;
     });
 
 })();
