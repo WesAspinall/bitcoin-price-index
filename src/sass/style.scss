@@ -8,30 +8,32 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-#section-1, #section-2 {
+#section-1 {
   width: 100vw;
   height: 100vh;
-}
-
-#section-1 {
   font-family: 'Helvetica Neue', Helvetica, sans-serif;
   background-color: beige;
+  padding: 1em;
 }
 
-#section-1 div h1 {
-  margin: 0;
-} 
-
-#section-2 {
-  background-color: lime;
+.currency ul {
+  padding: 0;
 }
+.currency ul li {
+  list-style-type: none;
+
+}
+
+
+
+
 #select-style {
   background: url("../img/caret.svg") no-repeat right 14px center;
   border: 1px solid #C7C7C7;
   width: 210px;
   height: 40px;
   padding: 0;
-  margin: 0 auto 40px auto;
+  margin: 0;
 }
 
 #select-style:hover {
@@ -54,7 +56,7 @@ body {
   background: none;
   outline: none;
   text-transform: uppercase;
-  font-family: Karla, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   line-height: 40px;
   font-weight: 700;
