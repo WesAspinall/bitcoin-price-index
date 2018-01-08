@@ -53,6 +53,12 @@ gulp.task('views', () => {
     .pipe(gulp.dest('./app'));
 });
 
+//  .html files
+gulp.task('images', () => {
+  return gulp.src(['./src/img/*'])
+    .pipe(gulp.dest('./app/img'));
+});
+
 // Watches our .scss & .js files for change
 gulp.task('watch', () => {
   console.log('watch running');
@@ -73,7 +79,7 @@ gulp.task('server', function(done) {
 });
 
 // Builds our app
-gulp.task('build', ['sass', 'browserify', 'views']);
+gulp.task('build', ['sass', 'browserify', 'views', 'images']);
 
 // Starts the development process
 gulp.task('start', ['build', 'watch', 'server']);
